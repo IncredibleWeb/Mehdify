@@ -27,6 +27,3 @@ Sort all the digits right side of array[x]
 Re-transform array[] into a number
 
 I think this is an efficient algorythm although I am a bit rusty with Javascript, particularly with the local/global variables handling.
-
-I added a couple of straightforward test lines myself and changed the indentation to 2.
-
