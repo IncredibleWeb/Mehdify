@@ -37,25 +37,12 @@
         }
 
         const swapedIndexesArray = swapLastTwoDigits(digits);
-        const digitsWithSortedTail = sortArrayTail(first + 1, digits);
+        const digitsWithSortedTail = sortArrayTail(first + 1, swapedIndexesArray);
         const answer = digitsToNumber(digitsWithSortedTail);
         return answer;
     }
 
     /* Helper functions: start */
-    function digitsIsInDescendingOrder(digits) {
-        const len = digits.length;
-        if (len === 0) {
-            return false;
-        }
-        for (let i = len - 1; i > 0; i--) {
-            if (digits[i] > digits[i - 1]) {
-                return false;
-            }
-        }
-        return true;
-    }
-
     function numberIsPositiveSafeInteger(number) {
         return (Number.isFinite(number)) &&
             (Number.isInteger(number)) &&
@@ -75,7 +62,7 @@
             .toString(10)
             .split("")
             .map(function (digit) {
-                return parseInt(digit)
+                return parseInt(digit);
             });
     }
 
@@ -123,11 +110,10 @@
     }
 
     function sortArrayTail(start, array) {
-        const copy = array.slice();
         const head = array.slice(0, start - 1);
         const tail = array.slice(start);
-        const sortedTail = tails.sort(function (a, b) { return b - a });
-        const digitsOfAnswer = head.concat(tail);
+        const sortedTail = tail.sort(function (a, b) { return b - a; });
+        const digitsOfAnswer = head.concat(sortedTail);
         return digitsToNumber(digitsOfAnswer);
     }
 
