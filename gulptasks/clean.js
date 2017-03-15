@@ -3,7 +3,7 @@ var gulp = require('gulp'),
     config = require('../gulpconfig.json');
 
 // cleans the jsBuild except the vendor.* files
-gulp.task('clean', function() {
+gulp.task('clean', function () {
     return gulp.src([config.paths.jsBuild + "**/*.*"], { read: false })
         .pipe(clean());
 });

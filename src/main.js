@@ -13,31 +13,35 @@
         if (digitsIsInDescendingOrder(digits)) {
             return x;
         }
-
         if (digitsIsInAscendingOrder(digits)) {
             return digitsToNumber(swapLastTwoDigits(digits));
         }
-
         return solveGeneralCase(digits);
     }
 
     /* Core logic function */
     function solveGeneralCase(digits) {
         const len = digits.length;
-        const last = digits[len - 1];
-        let first = -1;
-        for (let i = len - 1; i > 0; i--) {
-            if (digits[i] < digits[last]) {
-                first = i;
+        let i = 0;
+        for (i = len - 1; i > 0; i--) {
+            if (digits[i] > digits[i - 1]) {
                 break;
             }
         }
-        if (first === -1) {
+        if (i == 0) {
             return digitsToNumber(digits);
         }
+        let digit = digits[i - 1];
+        let j = 0;
+        let smallest = i;
+        for (j = i + 1; j < len; j++) {
+            if ((digits[j] > digit) && (digits[j] < digits[smallest])) {
+                smallest = j;
+            }
+        }
 
-        const swapedIndexesArray = swapLastTwoDigits(digits);
-        const digitsWithSortedTail = sortArrayTail(first + 1, swapedIndexesArray);
+        const swapedIndexesArray = swapIdexesInArray(smallest, i - 1, digits);
+        const digitsWithSortedTail = sortArrayTail(i + 1, swapedIndexesArray);
         const answer = digitsToNumber(digitsWithSortedTail);
         return answer;
     }
@@ -68,8 +72,9 @@
 
     function digitsToNumber(digits) {
         let sum = 0;
-        if (!(digits instanceof Array)) return sum;
-
+        if (!(digits instanceof Array)) {
+            return sum;
+        }
         const last = digits.length - 1;
         for (let i = 0; i <= last; i++) {
             sum += digits[i] * Math.pow(10, last - i);
@@ -101,18 +106,20 @@
         if (len === 0) {
             return false;
         }
+
         for (let i = len - 1; i > 0; i--) {
             if (digits[i] > digits[i - 1]) {
                 return false;
             }
         }
+
         return true;
     }
 
     function sortArrayTail(start, array) {
         const head = array.slice(0, start - 1);
         const tail = array.slice(start);
-        const sortedTail = tail.sort(function (a, b) { return b - a; });
+        const sortedTail = tail.sort();
         const digitsOfAnswer = head.concat(sortedTail);
         return digitsToNumber(digitsOfAnswer);
     }

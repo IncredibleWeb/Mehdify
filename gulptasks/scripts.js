@@ -6,12 +6,12 @@ var gulp = require('gulp'),
     es = require('event-stream'),
     config = require('../gulpconfig.json');
 
-gulp.task('scripts', ['clean'], function() {
+gulp.task('scripts', ['es6'], function () {
     return es.merge(
-        gulp.src(config.paths.js + "**/*.js")
-        .pipe(plumber())
-        .pipe(concat('script.min.js'))
-        .pipe(uglify())
-        .pipe(gulp.dest(config.paths.jsBuild))
+        gulp.src(config.paths.jsBuild + "**/*.js")
+            .pipe(plumber())
+            .pipe(concat('script.min.js'))
+            .pipe(uglify())
+            .pipe(gulp.dest(config.paths.jsBuild))
     )
 });

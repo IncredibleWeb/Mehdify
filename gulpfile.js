@@ -1,8 +1,6 @@
 var gulp = require('gulp'),
-    path = require('path'),
-    requireDir = require('require-dir'),
-    gutil = require('gulp-util');
+    requireDir = require('require-dir');
 
 requireDir('./gulptasks');
 
-gulp.task('default', ['scripts', 'test']);
+gulp.task('default', ['test']);
