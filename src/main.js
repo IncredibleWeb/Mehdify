@@ -1,4 +1,4 @@
-(function () {
+(function() {
     /**
      * Return the next integer that cosists of digits on x and bigger than x.
      * @param {number} x Safe positive integer.
@@ -32,7 +32,10 @@
         }
         const smallest = findSmallestBiggerIndex(digits, point);
         const swappedDigits = swapIdexesInArray(point, smallest, digits);
-        const { head, tail } = splitArrayAtIndex(swappedDigits, point);
+        const {
+            head,
+            tail
+        } = splitArrayAtIndex(swappedDigits, point);
         const sortedTail = tail.sort();
         const answer = digitsToNumber(head.concat(sortedTail));
         return answer;
@@ -57,7 +60,7 @@
         return number
             .toString(10)
             .split('')
-            .map(function (digit) {
+            .map(function(digit) {
                 return parseInt(digit);
             });
     }
@@ -104,7 +107,6 @@
                 return false;
             }
         }
-
         return true;
     }
 
@@ -123,7 +125,10 @@
     function splitArrayAtIndex(array, index) {
         var head = array.slice(0, index + 1);
         var tail = array.slice(index + 1);
-        return { head, tail };
+        return {
+            head,
+            tail
+        };
     }
 
 
