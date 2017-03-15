@@ -21,32 +21,71 @@
 
     /* Core logic function */
     function solveGeneralCase(digits) {
-        const len = digits.length;
-        let i = 0;
-        for (i = len - 1; i > 0; i--) {
-            if (digits[i] > digits[i - 1]) {
-                break;
-            }
-        }
-        if (i == 0) {
+        // const len = digits.length;
+        // let i = 0;
+        // for (i = len - 1; i > 0; i--) {
+        //     if (digits[i] > digits[i - 1]) {
+        //         break;
+        //     }
+        // }
+        // if (i == 0) {
+        //     return digitsToNumber(digits);
+        // }
+        // let digit = digits[i - 1];
+        // let j = 0;
+        // let smallest = i;
+        // for (j = i + 1; j < len; j++) {
+        //     if ((digits[j] > digit) && (digits[j] < digits[smallest])) {
+        //         smallest = j;
+        //     }
+        // }
+
+        // const swapedIndexesArray = swapIdexesInArray(smallest, i - 1, digits);
+        // const digitsWithSortedTail = sortArrayTail(i + 1, swapedIndexesArray);
+        // const answer = digitsToNumber(digitsWithSortedTail);
+        // return answer;
+
+
+        const point = findArrayBreakingPoint(digits);
+        if (point === -1) {
             return digitsToNumber(digits);
         }
-        let digit = digits[i - 1];
-        let j = 0;
-        let smallest = i;
-        for (j = i + 1; j < len; j++) {
-            if ((digits[j] > digit) && (digits[j] < digits[smallest])) {
-                smallest = j;
-            }
-        }
-
-        const swapedIndexesArray = swapIdexesInArray(smallest, i - 1, digits);
-        const digitsWithSortedTail = sortArrayTail(i + 1, swapedIndexesArray);
-        const answer = digitsToNumber(digitsWithSortedTail);
+        const smallest = findSmallestBiggerIndex(digits, point);
+        const swappedDigits = swapIdexesInArray(point, smallest, digits);
+        const {head, tail} = splitArrayAtIndex(swappedDigits, point);
+        const reversedTail = reverseArray(tail);
+        const answer = digitsToNumber(head.concat(reversedTail));
         return answer;
     }
 
-    /* Helper functions: start */
+    /* Model Helper Function: start */
+        function findArrayBreakingPoint(array) {
+            const len = array.length;
+            let left = len - 2;
+            let right = len - 1;
+            while(left > 0) {
+                if (array[left] < array[right]) {
+                    return left;
+                }
+                left--;
+                right--;
+            }
+            return -1;
+        }
+
+        function findSmallestBiggerIndex(array, point) {
+            const len = array.length;
+            let min = point + 1;
+            for(let i = point + 1; i < len; i++) {
+                if (array[i] < array[min] && array[min] > array[point]) {
+                    min = i;
+                }
+            }
+            return min;
+        }
+    /* Model Helper Function: end */
+
+    /* General Helper Functions: start */
     function numberIsPositiveSafeInteger(number) {
         return (Number.isFinite(number)) &&
             (Number.isInteger(number)) &&
@@ -133,7 +172,20 @@
         }
         return true;
     }
-    /* Helper functions: end */
+
+    function reverseArray(array) {
+        if (!(array instanceof Array)) {
+            return [];
+        }
+        return array.reverse();
+    }
+
+    function splitArrayAtIndex(array, index) {
+        var head = array.slice(0, index + 1);
+        var tail = array.slice(index + 1);
+        return { head, tail };
+    }
+    /* General Helper Functions: end */
 
 
     // required to export for tests
