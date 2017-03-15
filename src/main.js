@@ -140,13 +140,6 @@
         return true;
     }
 
-    // function reverseArray(array) {
-    //     if (!(array instanceof Array)) {
-    //         return [];
-    //     }
-    //     return array.reverse();
-    // }
-
     function splitArrayAtIndex(array, index) {
         var head = array.slice(0, index + 1);
         var tail = array.slice(index + 1);
