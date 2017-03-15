@@ -1,4 +1,4 @@
-# mehdify
+# mehdify [![Build Status](https://travis-ci.org/vmelnychuk/Mehdify.svg?branch=master)](https://travis-ci.org/vmelnychuk/Mehdify)
 
 mehdify is a simple test for software engineers.
 
