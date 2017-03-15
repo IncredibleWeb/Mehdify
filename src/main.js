@@ -32,38 +32,11 @@
         }
         const smallest = findSmallestBiggerIndex(digits, point);
         const swappedDigits = swapIdexesInArray(point, smallest, digits);
-        const {head, tail} = splitArrayAtIndex(swappedDigits, point);
+        const { head, tail } = splitArrayAtIndex(swappedDigits, point);
         const sortedTail = tail.sort();
         const answer = digitsToNumber(head.concat(sortedTail));
         return answer;
     }
-
-    /* Model Helper Function: start */
-    function findArrayBreakingPoint(array) {
-            const last = array.length -1;
-            let left = last -1;
-            let right = last;
-            while(left >= 0) {
-                if (array[left] < array[right]) {
-                    return left;
-                }
-                left--;
-                right--;
-            }
-            return -1;
-        }
-
-    function findSmallestBiggerIndex(array, point) {
-        const len = array.length;
-        let min = point + 1;
-        for(let i = point + 1; i < len; i++) {
-            if (array[i] < array[min] && array[min] > array[point]) {
-                min = i;
-            }
-        }
-        return min;
-    }
-    /* Model Helper Function: end */
 
     /* General Helper Functions: start */
     function numberIsPositiveSafeInteger(number) {
@@ -136,19 +109,50 @@
     }
 
     function digitsIsInAscendingOrder(digits) {
-        const len = digits.length - 1;
-        for (let i = 0; i < len - 1; i++) {
+        const last = digits.length - 1;
+        let violationOrderCount = 0;
+        for (let i = 0; i < last; i++) {
             if (digits[i] > digits[i + 1]) {
-                return false;
+                violationOrderCount++;
+                break;
             }
         }
-        return true;
+        return violationOrderCount < 1 ? true : false;
     }
 
     function splitArrayAtIndex(array, index) {
         var head = array.slice(0, index + 1);
         var tail = array.slice(index + 1);
         return { head, tail };
+    }
+
+
+    function findArrayBreakingPoint(array) {
+        const last = array.length - 1;
+        let left = last - 1;
+        let right = last;
+        while (left >= 0) {
+            if (array[left] < array[right]) {
+                return left;
+            }
+            left--;
+            right--;
+        }
+        return -1;
+    }
+
+    function findSmallestBiggerIndex(array, point) {
+        const len = array.length;
+        const smallest = point;
+        let smaller = point + 1;
+        for (let i = point + 1; i < len; i++) {
+            if (array[i] < array[smaller]) {
+                if (array[i] > array[smallest]) {
+                    smaller = i;
+                }
+            }
+        }
+        return smaller;
     }
     /* General Helper Functions: end */
 
