@@ -1,7 +1,12 @@
 (function () {
+    /**
+     * Return the next integer that cosists of digits on x and bigger than x.
+     * @param {number} x Safe positive integer.
+     * @returns {number} If it is possible to generate number that is bigger than x or x otherwise.
+     */
     function mehdify(x) {
         if (inputIsNotValid(x)) {
-            return -1;
+            return x;
         }
         const answer = findAnswer(x);
         return answer;
@@ -22,7 +27,7 @@
     /* Core logic function */
     function solveGeneralCase(digits) {
         const point = findArrayBreakingPoint(digits);
-        if (point === -1) {
+        if (point == -1) {
             return digitsToNumber(digits);
         }
         const smallest = findSmallestBiggerIndex(digits, point);
