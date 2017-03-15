@@ -78,7 +78,7 @@
         }
         return number
             .toString(10)
-            .split("")
+            .split('')
             .map(function (digit) {
                 return parseInt(digit);
             });
