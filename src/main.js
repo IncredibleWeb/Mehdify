@@ -18,7 +18,7 @@
         if (digitsIsInDescendingOrder(digits)) {
             return x;
         }
-        if (digitsIsInAscendingOrder(digits)) {
+        if (digitsIsInAscendingWithOutEqualsOrder(digits)) {
             return digitsToNumber(swapLastTwoDigits(digits));
         }
         return solveGeneralCase(digits);
@@ -110,11 +110,11 @@
         return true;
     }
 
-    function digitsIsInAscendingOrder(digits) {
+    function digitsIsInAscendingWithOutEqualsOrder(digits) {
         const last = digits.length - 1;
         let violationOrderCount = 0;
         for (let i = 0; i < last; i++) {
-            if (digits[i] > digits[i + 1]) {
+            if (digits[i] >= digits[i + 1]) {
                 violationOrderCount++;
                 break;
             }
