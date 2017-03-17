@@ -8,6 +8,7 @@ describe('mehdify', function () {
         assert.equal(712, mehdify(271));
         assert.equal(81, mehdify(18));
         assert.equal(441, mehdify(414));
+        assert.equal(414, mehdify(144));
     });
     it('should return X when there is no larger integer', function () {
         assert.equal(542, mehdify(542));
