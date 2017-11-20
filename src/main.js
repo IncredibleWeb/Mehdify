@@ -1,53 +1,30 @@
 (function() {
 
-    function permutator (digitArray) {
-        var results = [];
-        var digitResults = [];
+    function mehdify(x) {
+        // assuming that x is always a positive integer.
 
-        function permute (arr, m) {
-            m = m || [];
-            if (arr.length === 0) {
-                results.push(m);
-            } else {
-                for (var i = 0; i < arr.length; i++) {
-                    var curr = arr.slice();
-                    var next = curr.splice(i, 1);
-                    permute(curr.slice(), m.concat(next));
-                }
+        var digitis = x.toString().split('');
+        var numberLength = digitis.length;
+        var result = x;
+
+        if (numberLength >= 2) {
+            for (var j = numberLength; j >= 0; j--) {
+                for (var i = numberLength - 2; i >= 0; i--) {
+                    var temp = digitis[i];
+                    digitis[i] = digitis[i + 1];
+                    digitis[i + 1] = temp;
+                    var num = +digitis.join('');
+
+                    if (num >= x) {
+                        result = num;
+                        j = 0;
+                        break;
+                    }
+                }   
             }
         }
 
-        permute(digitArray);
-
-        for (var i = results.length - 1; i >= 0; i--) {
-            digitResults.push(covertDigitArrayToInt(results[i]));
-        }
-
-        return digitResults.sort().filter(function(item, pos) {
-            return digitResults.indexOf(item) == pos;
-        });
-    }
-
-    function convertIntToDigitArray (number) {
-        var digits = number.toString().split('');
-        return digits.map(Number);
-    }
-
-    function covertDigitArrayToInt (arr) {
-        return +arr.join('');
-    }
-
-    function mehdify(x) {
-        // assuming that x is always a positive integer.
-        var digits = convertIntToDigitArray(x);
-        var permutations = permutator(digits);
-        var numberIndex = permutations.indexOf(x);
-
-        if (permutations[numberIndex + 1]) {
-            ++numberIndex;
-        }
-
-        return permutations[numberIndex];
+        return result;
     }
 
     // required to export for tests
