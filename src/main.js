@@ -3,25 +3,42 @@
     function mehdify(x) {
         // assuming that x is always a positive integer.
 
-        var digitis = x.toString().split('');
-        var numberLength = digitis.length;
+        var digits = x.toString().split('');
+        var numberLength = digits.length;
         var result = x;
+        var right = [];
+        var left =[];
 
         if (numberLength >= 2) {
-            for (var j = numberLength; j >= 0; j--) {
-                for (var i = numberLength - 2; i >= 0; i--) {
-                    var temp = digitis[i];
-                    digitis[i] = digitis[i + 1];
-                    digitis[i + 1] = temp;
-                    var num = +digitis.join('');
-
-                    if (num >= x) {
-                        result = num;
-                        j = 0;
-                        break;
-                    }
-                }   
+            for (var j = numberLength - 1; j >= 0; j--) {
+                right.push(digits[j]);
+                if (!digits[j - 1] || digits[j] > digits[j - 1]) {
+                    break;
+                }
             }
+
+            left = digits.splice(0, digits.length - right.length);
+            
+            // If the entire number is in decreasing order, there's no bigger number to be made
+            if (left.length === 0) {
+                return x;
+            }
+
+            var lastDigitOfLeft = left[left.length - 1];
+            var firstSmallestDigitIndexOnRight;
+            
+            for (var i = 0; i < right.length; i++) {
+                if (lastDigitOfLeft < right[i]) {
+                    firstSmallestDigitIndexOnRight = i;
+                    break;
+                }
+            }
+            
+            left[left.length - 1] = right[firstSmallestDigitIndexOnRight];
+            right[firstSmallestDigitIndexOnRight] = lastDigitOfLeft;
+            
+            result = +left.concat(right).join('');
+
         }
 
         return result;
