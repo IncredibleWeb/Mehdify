@@ -3,29 +3,29 @@
   function mehdify(x) {
     
     x = x;
-    const arrVal = x.toString().split('');// split to array value
-    const numArr = arrVal.map(x => {
+    var arrVal = x.toString().split('');// split to array value
+    var numArr = arrVal.map(function(x) {
       return Number(x);
     });//create array of numbers
 
     if (numArr.length === 1) {
       return x; // single digit integer
     }
-    const copy = numArr.slice();
-    let y;
+    var copy = numArr.slice();
+    var y;
 
 
     for (var i = copy.length - 1; i >= 0; i--) {
       if (copy[i] > copy[i - 1]) {
-        const smallAndArr = getMinNumberAndArray(copy[i - 1], copy.slice(i));
+        var smallAndArr = getMinNumberAndArray(copy[i - 1], copy.slice(i));
         smallAndArr[1].push(copy[i - 1]);
        
-        const firstPart = copy.slice(0, i - 1);
+        var firstPart = copy.slice(0, i - 1);
 
 
         firstPart.push(smallAndArr[0]);
         smallAndArr[1].sort();
-        smallAndArr[1].map(each => {
+        smallAndArr[1].map(function(each) {
           firstPart.push(each);
         })
         //console.log(firstPart)
@@ -43,8 +43,8 @@
   }
 
   function getMinNumberAndArray(num, numArr) {
-    const finalArr = [];
-    const sorted = numArr.sort();
+    var finalArr = [];
+    var sorted = numArr.sort();
     for (var i = 0; i < sorted.length; i++) {
       if (sorted[i] > num) {
         finalArr.push(sorted[i]);
